@@ -1,0 +1,9 @@
+Package: undergroundperformance
+Version: 0.0.0.9000
+Title: What the Package Does (one line, title case)
+Description: What the package does (one paragraph).
+Authors@R: person("Duncan", "Garmonsway", email = "duncan.garmonsway@gmail.com", role = c("aut", "cre"))
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
