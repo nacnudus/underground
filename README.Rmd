@@ -20,6 +20,9 @@ package makes it available in [csv
 files](https://github.com/nacnudus/underground/blob/master/data), or in an R
 data frame.
 
+The secret sauce is [tidyxl](https://nacnudus.github.io/tidyxl) with a dash of
+[unpivotr](https://nacnudus.github.io/unpivotr).
+
 ## Installation
 
 ```r

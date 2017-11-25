@@ -1,32 +1,33 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+
+
 # underground
 
-London Underground performance data is published in spreadsheets. This R
+London Underground performance data is published in spreadsheets.  This R
 package makes it available in [csv
-files](https://github.com/nacnudus/underground/blob/master/data), or in
-an R data frame.
+files](https://github.com/nacnudus/underground/blob/master/data), or in an R
+data frame.
+
+The secret sauce is [tidyxl](https://nacnudus.github.io/tidyxl) with a dash of
+[unpivotr](https://nacnudus.github.io/unpivotr).
 
 ## Installation
 
-``` r
+```r
 devtools::install_github("nacnudus/underground")
 ```
 
 ## Example
 
-``` r
+
+```r
 library(underground)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library(ggplot2)
 
 underground %>%
@@ -46,4 +47,4 @@ underground %>%
   ggtitle("Train delays longer than 15 minutes (2016/17)")
 ```
 
-<img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="100%" />
