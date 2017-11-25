@@ -1,9 +1,12 @@
-Package: undergroundperformance
+Package: underground
 Version: 0.0.0.9000
-Title: What the Package Does (one line, title case)
-Description: What the package does (one paragraph).
+Title: London Underground Performance Data
+Description: Redistributes London Underground performance data in a more
+    convenient form for analysis than spreadsheets
 Authors@R: person("Duncan", "Garmonsway", email = "duncan.garmonsway@gmail.com", role = c("aut", "cre"))
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
