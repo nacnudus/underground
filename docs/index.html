@@ -31,7 +31,7 @@
 <li>
   <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
   </a>
 </li>
 <li>
@@ -46,78 +46,56 @@
 </div>
 <!--/.navbar -->
 
-      
+
       </header><div class="row">
   <div class="col-md-9">
-    
 
-    
-    
+
+
+
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="underground" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#underground" class="anchor"></a>underground</h1></div>
 
+<p>London Underground performance data is published in spreadsheets. This R package makes it available in <a href="https://github.com/nacnudus/underground/tree/master/inst/extdata">csv files</a>, or in an R data frame.</p>
 <p>The secret sauce is <a href="https://nacnudus.github.io/tidyxl">tidyxl</a> with a dash of <a href="https://nacnudus.github.io/unpivotr">unpivotr</a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><div class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"nacnudus/underground"</span>)</div></code></pre>
+<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"nacnudus/underground"</span>)</a></code></pre>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><div class="sourceLine" id="cb2-1" data-line-number="1">
-<span class="kw">library</span>(underground)</div>
-<div class="sourceLine" id="cb2-2" data-line-number="2">
-<span class="kw">library</span>(dplyr)</div>
-<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; </span></div>
-<div class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; Attaching package: 'dplyr'</span></div>
-<div class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></div>
-<div class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; </span></div>
-<div class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;     filter, lag</span></div>
-<div class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; The following objects are masked from 'package:base':</span></div>
-<div class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; </span></div>
-<div class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></div>
-<div class="sourceLine" id="cb2-11" data-line-number="11">
-<span class="kw">library</span>(ggplot2)</div>
-<div class="sourceLine" id="cb2-12" data-line-number="12"></div>
-<div class="sourceLine" id="cb2-13" data-line-number="13">underground <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb2-14" data-line-number="14">
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(metric <span class="op">==</span><span class="st"> "Train delays longer than 15 minutes"</span>,</div>
-<div class="sourceLine" id="cb2-15" data-line-number="15">         year <span class="op">==</span><span class="st"> "2016/17"</span>,</div>
-<div class="sourceLine" id="cb2-16" data-line-number="16">         <span class="kw">is.na</span>(fourweek),</div>
-<div class="sourceLine" id="cb2-17" data-line-number="17">         <span class="kw">is.na</span>(quarter),</div>
-<div class="sourceLine" id="cb2-18" data-line-number="18">         line <span class="op">!=</span><span class="st"> "All Lines"</span>) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb2-19" data-line-number="19">
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">fill=</span> underground_colours[line]) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb2-20" data-line-number="20">
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(line, value, fill) <span class="op">%&gt;%</span>
-</div>
-<div class="sourceLine" id="cb2-21" data-line-number="21">
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(line, value, <span class="dt">fill =</span> fill)) <span class="op">+</span>
-</div>
-<div class="sourceLine" id="cb2-22" data-line-number="22">
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_bar">geom_bar</a></span>(<span class="dt">stat =</span> <span class="st">"identity"</span>) <span class="op">+</span>
-</div>
-<div class="sourceLine" id="cb2-23" data-line-number="23">
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_identity">scale_fill_identity</a></span>(<span class="st">""</span>, <span class="dt">labels =</span> underground_lines, <span class="dt">guide =</span> <span class="st">"legend"</span>) <span class="op">+</span>
-</div>
-<div class="sourceLine" id="cb2-24" data-line-number="24">
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span>
-</div>
-<div class="sourceLine" id="cb2-25" data-line-number="25">
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">xlab</a></span>(<span class="st">""</span>) <span class="op">+</span>
-</div>
-<div class="sourceLine" id="cb2-26" data-line-number="26">
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="st">""</span>) <span class="op">+</span>
-</div>
-<div class="sourceLine" id="cb2-27" data-line-number="27">
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Train delays longer than 15 minutes (2016/17)"</span>)</div></code></pre>
+<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(underground)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;     filter, lag</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; The following objects are masked from 'package:base':</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">underground <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/filter">filter</a></span>(metric <span class="op">==</span><span class="st"> "Train delays longer than 15 minutes"</span>,</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">         year <span class="op">==</span><span class="st"> "2016/17"</span>,</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">         <span class="kw">is.na</span>(fourweek),</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">         <span class="kw">is.na</span>(quarter),</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">         line <span class="op">!=</span><span class="st"> "All Lines"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/mutate">mutate</a></span>(<span class="dt">fill=</span> underground_colours[line]) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/select">select</a></span>(line, value, fill) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(line, value, <span class="dt">fill =</span> fill)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_bar">geom_bar</a></span>(<span class="dt">stat =</span> <span class="st">"identity"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/scale_identity">scale_fill_identity</a></span>(<span class="st">""</span>, <span class="dt">labels =</span> underground_lines, <span class="dt">guide =</span> <span class="st">"legend"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/element">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">xlab</a></span>(<span class="st">""</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="st">""</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Train delays longer than 15 minutes (2016/17)"</span>)</a></code></pre>
 <p><img src="reference/figures/README-unnamed-chunk-1-1.png" width="100%"></p>
 </div>
 </div>
