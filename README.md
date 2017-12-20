@@ -3,10 +3,11 @@
 
 # underground
 
-London Underground performance data is published in spreadsheets. This R
-package makes it available in [csv
-files](https://github.com/nacnudus/underground/tree/master/inst/extdata),
-or in an R data frame.
+London Underground performance data is published in
+[spreadsheets](https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance).
+This R package makes it available in [csv
+files](https://github.com/nacnudus/underground/tree/master/inst/extdata), or in
+an R data frame.
 
 The secret sauce is [tidyxl](https://nacnudus.github.io/tidyxl) with a
 dash of [unpivotr](https://nacnudus.github.io/unpivotr).
