@@ -53,3 +53,10 @@ underground %>%
   ylab("") +
   ggtitle("Train delays longer than 15 minutes (2016/17)")
 ```
+
+## Metrics
+
+```{r}
+distinct(underground, metric) %>%
+  pull(metric)
+```
