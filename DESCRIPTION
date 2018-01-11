@@ -2,7 +2,7 @@ Package: underground
 Version: 0.0.0.9000
 Title: London Underground Performance Data
 Description: Redistributes London Underground performance data in a more
-    convenient form for analysis than spreadsheets
+    convenient form for analysis than spreadsheets.
 Authors@R: person("Duncan", "Garmonsway", email = "duncan.garmonsway@gmail.com", role = c("aut", "cre"))
 License: MIT + file LICENSE
 Encoding: UTF-8
