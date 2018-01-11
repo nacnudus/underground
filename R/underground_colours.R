@@ -18,7 +18,7 @@
 #' underground_colors
 #' underground_lines
 #'
-#' dontrun{
+#' \dontrun{
 #'   underground %>%
 #'     filter(metric == "Train delays longer than 15 minutes",
 #'            year == "2016/17",
