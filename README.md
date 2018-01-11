@@ -3,11 +3,13 @@
 
 # underground
 
+**Updated on 2018-01-11 with data up to 2017-12-09**
+
 London Underground performance data is published in
 [spreadsheets](https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance).
 This R package makes it available in [csv
-files](https://github.com/nacnudus/underground/tree/master/inst/extdata), or in
-an R data frame.
+files](https://github.com/nacnudus/underground/tree/master/inst/extdata),
+or in an R data frame.
 
 The secret sauce is [tidyxl](https://nacnudus.github.io/tidyxl) with a
 dash of [unpivotr](https://nacnudus.github.io/unpivotr).
@@ -23,13 +25,21 @@ devtools::install_github("nacnudus/underground")
 ``` r
 library(underground)
 library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 library(ggplot2)
 
 underground %>%
   filter(metric == "Train delays longer than 15 minutes",
-         year == "2016/17",
-         is.na(fourweek),
+         year == "2017/18",
          is.na(quarter),
+         fourweek == 9,
          line != "All Lines") %>%
   mutate(fill= underground_colours[line]) %>%
   select(line, value, fill) %>%
@@ -39,7 +49,8 @@ underground %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   xlab("") +
   ylab("") +
-  ggtitle("Train delays longer than 15 minutes (2016/17)")
+  ggtitle("Train delays longer than 15 minutes",
+          subtitle = "Period 9 2017/18 from 12 November 2017 to 9 December 2017")
 ```
 
 <img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />

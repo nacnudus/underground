@@ -1,7 +1,7 @@
 #' London Underground Services Performance Data
 #'
 #' A dataset of the London Underground services performance data timeseries from
-#' 2003/04 to November 2017.
+#' 2003/04 to 9 December 2017.
 #'
 #' This dataset may be updated approximately monthly.  To use the latest data,
 #' reinstall the package from the GitHub repository
