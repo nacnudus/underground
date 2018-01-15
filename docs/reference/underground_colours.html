@@ -104,31 +104,47 @@ ggplot2::scalel_*_identity().</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>underground_colours
-underground_colors
-underground_lines
-
-dontrun{
-  underground %>%
-    filter(metric == "Train delays longer than 15 minutes",
-           year == "2016/17",
-           is.na(fourweek),
-           is.na(quarter),
-           line != "All Lines") %>%
-    mutate(fill= underground_colours[line]) %>%
-    select(line, value, fill) %>%
-    ggplot(aes(line, value, fill = fill)) +
-    geom_bar(stat = "identity") +
-    scale_fill_identity("", labels = underground_lines, guide = "legend") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-    xlab("") +
-    ylab("") +
-    ggtitle("Train delays longer than 15 minutes (2016/17)")
-}
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:5:8: unexpected '{'</span>
-#&gt; <span class='error'>4: </span>
-#&gt; <span class='error'>5: dontrun{</span>
-#&gt; <span class='error'>          ^</span></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>underground_colours</span></div><div class='output co'>#&gt;          All Lines           Bakerloo            Central             Circle 
+#&gt;          "#DC006B"          "#B26300"          "#DC241F"          "#FFD329" 
+#&gt;       Circle + H&amp;C           District Hammersmith &amp; City            Jubilee 
+#&gt;          "#FFD32A"          "#007D32"          "#F4A9BE"          "#A1A5A7" 
+#&gt;       Metropolitan           Northern         Piccadilly           Victoria 
+#&gt;          "#9B0058"          "#000000"          "#0019A8"          "#0098D8" 
+#&gt;    Waterloo &amp; City 
+#&gt;          "#93CEBA" </div><div class='input'><span class='no'>underground_colors</span></div><div class='output co'>#&gt;          All Lines           Bakerloo            Central             Circle 
+#&gt;          "#DC006B"          "#B26300"          "#DC241F"          "#FFD329" 
+#&gt;       Circle + H&amp;C           District Hammersmith &amp; City            Jubilee 
+#&gt;          "#FFD32A"          "#007D32"          "#F4A9BE"          "#A1A5A7" 
+#&gt;       Metropolitan           Northern         Piccadilly           Victoria 
+#&gt;          "#9B0058"          "#000000"          "#0019A8"          "#0098D8" 
+#&gt;    Waterloo &amp; City 
+#&gt;          "#93CEBA" </div><div class='input'><span class='no'>underground_lines</span></div><div class='output co'>#&gt;              #DC006B              #B26300              #DC241F 
+#&gt;          "All Lines"           "Bakerloo"            "Central" 
+#&gt;              #FFD329              #FFD32A              #007D32 
+#&gt;             "Circle"       "Circle + H&amp;C"           "District" 
+#&gt;              #F4A9BE              #A1A5A7              #9B0058 
+#&gt; "Hammersmith &amp; City"            "Jubilee"       "Metropolitan" 
+#&gt;              #000000              #0019A8              #0098D8 
+#&gt;           "Northern"         "Piccadilly"           "Victoria" 
+#&gt;              #93CEBA 
+#&gt;    "Waterloo &amp; City" </div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+  <span class='no'>underground</span> <span class='kw'>%&gt;%</span>
+    <span class='fu'>filter</span>(<span class='no'>metric</span> <span class='kw'>==</span> <span class='st'>"Train delays longer than 15 minutes"</span>,
+           <span class='no'>year</span> <span class='kw'>==</span> <span class='st'>"2016/17"</span>,
+           <span class='fu'>is.na</span>(<span class='no'>fourweek</span>),
+           <span class='fu'>is.na</span>(<span class='no'>quarter</span>),
+           <span class='no'>line</span> <span class='kw'>!=</span> <span class='st'>"All Lines"</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>mutate</span>(<span class='kw'>fill</span><span class='kw'>=</span> <span class='no'>underground_colours</span>[<span class='no'>line</span>]) <span class='kw'>%&gt;%</span>
+    <span class='fu'>select</span>(<span class='no'>line</span>, <span class='no'>value</span>, <span class='no'>fill</span>) <span class='kw'>%&gt;%</span>
+    <span class='fu'>ggplot</span>(<span class='fu'>aes</span>(<span class='no'>line</span>, <span class='no'>value</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>fill</span>)) +
+    <span class='fu'>geom_bar</span>(<span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>) +
+    <span class='fu'>scale_fill_identity</span>(<span class='st'>""</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='no'>underground_lines</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>) +
+    <span class='fu'>theme</span>(<span class='kw'>axis.text.x</span> <span class='kw'>=</span> <span class='fu'>element_text</span>(<span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>hjust</span> <span class='kw'>=</span> <span class='fl'>1</span>)) +
+    <span class='fu'>xlab</span>(<span class='st'>""</span>) +
+    <span class='fu'>ylab</span>(<span class='st'>""</span>) +
+    <span class='fu'>ggtitle</span>(<span class='st'>"Train delays longer than 15 minutes (2016/17)"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

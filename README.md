@@ -55,6 +55,14 @@ underground %>%
 
 <img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
 
+## Four-weekly periods
+
+Most series data are reported in periods approximately four weeks long.
+Some periods are shorter or longer by a day or more, so that each year
+is covered by 13 periods, beginning on the 1st of April.
+
+Join the dataset `fourweeks` to resolve periods (1 to 13) to dates.
+
 ## Metrics
 
 ``` r

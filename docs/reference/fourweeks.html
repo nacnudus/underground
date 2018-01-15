@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • underground</title>
+<title>Lookup table of four-week periods — fourweeks • underground</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -73,58 +73,57 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.0.0.9000</small>
-      </h1>
+    <h1>Lookup table of four-week periods</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    
+    <p>A lookup table of the four-week periods used in the dataset <code>underground</code></p>
+    
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <pre class="usage"><span class='no'>fourweeks</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="fourweeks.html">fourweeks</a></code> </p>
-          </td>
-          <td><p>Lookup table of four-week periods</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="underground_colours.html">underground_colours</a></code> <code><a href="underground_colours.html">underground_colors</a></code> <code><a href="underground_colours.html">underground_lines</a></code> </p>
-          </td>
-          <td><p>London Underground Palette</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="underground.html">underground</a></code> </p>
-          </td>
-          <td><p>London Underground Services Performance Data</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <p>A data frame with 86 rows and 5 variables:</p><ul>
+<li><p><code>year</code>     The year (from 1 April to 31 May, e.g. "2011/12")</p></li>
+<li><p><code>fourweek</code> The number of the four-week period within the year (1 to 13)</p></li>
+<li><p><code>start</code>    The date of the first day of the four-week period</p></li>
+<li><p><code>start</code>    The date of the last day of the four-week period</p></li>
+<li><p><code>days</code>     The length of the four-week period in days.  Usually it is 28
+days long, but is sometimes shorter or longer so that each
+year is covered by 13 periods.</p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>https://data.london.gov.uk/dataset/london-underground-performance-reports,
+the file "tfl-tube-performance.xls"</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This dataset may be updated approximately monthly.  To use the latest data,
+reinstall the package from the GitHub repository
+https://github.com/nacnudus/underground.</p>
+<p>Some series of the London Underground Services performance data are reported
+in periods approximately four weeks long.  Some periods are shorter or longer
+by a day or more, so that each year is covered by 13 periods, beginning on
+the 1st of April.</p>
+    
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+      
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
+
   </div>
 </div>
 

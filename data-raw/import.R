@@ -1,7 +1,9 @@
 library(tidyverse)
 library(tidyxl)
+library(readxl)
 library(unpivotr)
 library(directlabels)
+library(lubridate)
 library(here)
 
 path <- here("inst", "extdata", "lu-performance-data-almanac.xlsx")
@@ -286,3 +288,28 @@ usethis::use_data(underground, overwrite = TRUE)
 
 write.csv(underground, row.names = FALSE, quote = FALSE,
           file=gzfile("./inst/extdata/underground.csv.gz"))
+
+# Period start/end-dates are available in a separate report not published on
+# TFL's own site, but available from the London Data Store
+# https://data.london.gov.uk/dataset/london-underground-performance-reports
+
+# Not every period is 28 days long, despite what they say in some places.  The
+# field 'days in period' is wrong, so use the 'period ending' field instead
+# (checked against pdf publications)
+
+fourweeks <-
+  read_excel(here("inst", "extdata", "tfl-tube-performance.xls"), "Key trends") %>%
+  rename(fourweek = `Reporting Period`, end = `Period ending`) %>%
+  select(fourweek, end) %>%
+  mutate(fourweek = as.integer(fourweek),
+         end = as_date(end),
+         days = as.integer(interval(lag(end), end) / days(1)),
+         start = end - days(days - 1),
+         year = year(end) - if_else(month(end) <= 3, 1L, 0L),
+         year = paste0(year, "/", year - 2000 + 1)) %>%
+  select(year, fourweek, start, end, days)
+
+usethis::use_data(fourweeks, overwrite = TRUE)
+
+write.csv(fourweeks, row.names = FALSE, quote = FALSE,
+          file=gzfile("./inst/extdata/fourweeks.csv.gz"))
