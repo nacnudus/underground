@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>London Underground Services Performance Data — underground • underground</title>
+<title>Lookup table of four-week periods — rail_periods • underground</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -75,67 +75,46 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>London Underground Services Performance Data</h1>
+    <h1>Lookup table of four-week periods</h1>
     </div>
 
     
-    <p>A dataset of the London Underground services performance data timeseries from
-2003/04 to 9 December 2017.</p>
+    <p>A lookup table of the four-week-ish 'Control Periods' used by the UK rail</p>
     
 
-    <pre class="usage"><span class='no'>underground</span></pre>
+    <pre class="usage"><span class='no'>rail_periods</span></pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 103,082 rows and 8 variables:</p><ul>
-<li><p><code>metric</code>   The title of the data series</p></li>
-<li><p><code>year</code>     Year beginning 1 April</p></li>
-<li><p><code>quarter</code>  The quarter, e.g. <code>"QTR 1"</code> of year beginning 1 April, for
-quarterly series</p></li>
-<li><p><code>fourweek</code> The four-week period within the year beginning 1 April, for
-four-weekly series. I don't know whether the 13th and final
-period is a day longer.</p></li>
-<li><p><code>line</code>     The London Underground Line, for series broken down by line</p></li>
-<li><p><code>category</code> The cause of loss of customer hours, for some Lost Customer
-Hours series</p></li>
-<li><p><code>asset</code>    Either <code>Escalators - MTBF (days)</code> or <code>Lifts - MTBF (days)</code>, for
-the series "Escalator and Lift Mean Time Between Failures
-(Days)"</p></li>
-<li><p><code>company</code>  The company concerned, for some Lost Customer Hours series (see
-'Details')</p></li>
-<li><p><code>value</code>    The observed value of the metric</p></li>
+    <p>A data frame with 568 rows and 5 variables:</p><ul>
+<li><p><code>year</code>     The financial year (from 1 April to 31 May, e.g. "2011/2012")</p></li>
+<li><p><code>period</code>   The number of the four-week period within the year (1 to 13)</p></li>
+<li><p><code>start</code>    The date of the first day of the period</p></li>
+<li><p><code>start</code>    The date of the last day of the period</p></li>
+<li><p><code>days</code>     The length of the four-week period in days.  Usually it is 28
+days long, but some periods are shorter or longer so that each
+year is covered by exactly 13 periods.</p></li>
 </ul>
     
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance</p>
+    <p>The source is not disclosed.  It is similar to a
+<a href='https://www.whatdotheyknow.com/request/historic_knowledge_of_london_sta'>document</a>
+obtained via the Freedom of Information Act, except the boundary between
+periods 12 and 13 in the year 2009/10.  Another
+<a href='http://dataportal.orr.gov.uk/displayreport/report/html/d986b6bf-5ca7-45c4-800c-75156d93e1a8'>source</a>
+by the Office for Rail and Road was used to confirm that boundary.  Other
+sources have been seen but not used, for example
+https://data.london.gov.uk/dataset/london-underground-performance-reports,
+the file "tfl-tube-performance.xls".  Enquiries for definitive information
+are being made through official channels.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This dataset may be updated approximately monthly.  To use the latest data,
-reinstall the package from the GitHub repository
-https://github.com/nacnudus/underground.</p>
-<p>There are many series, each given annually as well as one of quarterly and
-four-weekly.  Most series are broken down by line, others are broken down by
-other things as follows.</p><ul>
-<li><p>Various Lost Customer Hours series are broken down by <code>line</code>, <code>category</code>
-(which is really 'cause'), and <code>company</code> (see 'Details')</p></li>
-<li><p>Escalator and Lift Mean Time Between Failures (Days) is broken down by
-<code>asset</code> (lift or escalator)</p></li>
-</ul>
-    <p>What the <code>company</code> column means:
-    <code>BCV</code> = Bakerloo, Central, Victoria (and Waterlool &amp; City)
-<code>SSL</code> = Sub-Surface Lines (District, Hammersmith and City, Metropolitan,
-Circle and East London)
-<code>JNP</code> = Jubilee, Northern, Picadilly</p>
-<p>From https://en.wikipedia.org/wiki/Talk<!-- %3ATransport_for_London: --></p>
-<p>"The maintenance and upgrading of the London Underground Network is carried
-out by different companies. Tube Lines in responsible for the Jubilee,
-Northern and Piccadilly Lines (JNP), Metronet BCV is responsible for the
-Bakerloo, Central and Victoria Lines (BCV) as well as the Waterloo and City
-Line, whilst Metronet SSL (sub surface lines) is responsible for the District,
-Hammersmith and City, Metropolitan, Circle and East London lines." DavidB601
-20:57, 7 November 2006 (UTC)</p>
+    <p>Some series of the London Underground Services performance data are reported
+in 'periods' approximately four weeks long.  Some periods are shorter or
+longer so that each year is covered by exactly 13 periods, beginning on the
+April the 1st.</p>
     
 
   </div>

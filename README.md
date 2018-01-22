@@ -39,7 +39,7 @@ underground %>%
   filter(metric == "Train delays longer than 15 minutes",
          year == "2017/18",
          is.na(quarter),
-         fourweek == 9,
+         period == 9,
          line != "All Lines") %>%
   mutate(fill= underground_colours[line]) %>%
   select(line, value, fill) %>%
@@ -55,13 +55,14 @@ underground %>%
 
 <img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
 
-## Four-weekly periods
+## Control periods
 
-Most series data are reported in periods approximately four weeks long.
-Some periods are shorter or longer by a day or more, so that each year
-is covered by 13 periods, beginning on the 1st of April.
+Most series are reported in ‘periods’ approximately four weeks long,
+used by the whole UK rail industry. Some periods are shorter or longer
+so that each year is covered by exactly 13 periods, beginning on the
+April the 1st.
 
-Join the dataset `fourweeks` to resolve periods (1 to 13) to dates.
+Join the dataset `rail_periods` to resolve periods (1 to 13) to dates.
 
 ## Metrics
 
