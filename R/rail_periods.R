@@ -10,7 +10,7 @@
 #'
 #' @format A data frame with 568 rows and 5 variables:
 #'
-#' * `year`     The financial year (from 1 April to 31 May, e.g. "2011/2012")
+#' * `year`     The financial year (from 1 April to 31 May, e.g. "2011/12")
 #' * `period`   The number of the four-week period within the year (1 to 13)
 #' * `start`    The date of the first day of the period
 #' * `start`    The date of the last day of the period

@@ -26,7 +26,7 @@ periods_foi <-
   set_names(x[[1]][2, ]) %>%
   gather(period, start_date, -1) %>%
   rename(financial_year = `Financial Year`) %>%
-  mutate(financial_year = str_replace(financial_year, "-", "/20"),
+  mutate(financial_year = str_replace(financial_year, "-", "/"),
          start_date = dmy(start_date),
          period = as.integer(parse_number(period))) %>%
   group_by(financial_year) %>%
@@ -44,7 +44,7 @@ periods_private <-
   read_excel(path_private, skip = 7) %>%
   select(Year, Period, Start_Date, End_Date) %>%
   set_names(c("year", "period", "start_date", "end_date")) %>%
-  mutate(year = paste(year, year + 1, sep = "/"),
+  mutate(year = paste(year, str_sub(year + 1, 3L, 4L), sep = "/"),
          period = as.integer(period),
          start_date = as.Date(start_date),
          end_date = as.Date(end_date),

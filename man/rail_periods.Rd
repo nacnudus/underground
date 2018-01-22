@@ -6,7 +6,7 @@
 \title{Lookup table of four-week periods}
 \format{A data frame with 568 rows and 5 variables:
 \itemize{
-\item \code{year}     The financial year (from 1 April to 31 May, e.g. "2011/2012")
+\item \code{year}     The financial year (from 1 April to 31 May, e.g. "2011/12")
 \item \code{period}   The number of the four-week period within the year (1 to 13)
 \item \code{start}    The date of the first day of the period
 \item \code{start}    The date of the last day of the period
