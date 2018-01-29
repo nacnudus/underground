@@ -38,13 +38,15 @@ periods_foi <-
   filter(period != 14) %>%
   print(n = Inf)
 
+# Compare with information received privately
+
 path_private <- here("inst", "extdata", "Performance_Period_snapshot.xlsx")
 
 periods_private <-
   read_excel(path_private, skip = 7) %>%
   select(Year, Period, Start_Date, End_Date) %>%
-  set_names(c("year", "period", "start_date", "end_date")) %>%
-  mutate(year = paste(year, str_sub(year + 1, 3L, 4L), sep = "/"),
+  set_names(c("financial_year", "period", "start_date", "end_date")) %>%
+  mutate(financial_year = paste(financial_year, str_sub(financial_year + 1, 3L, 4L), sep = "/"),
          period = as.integer(period),
          start_date = as.Date(start_date),
          end_date = as.Date(end_date),
@@ -69,6 +71,55 @@ periods_private <-
          days = as.integer(interval(start_date, end_date) / days(1)))
 
 rail_periods <- periods_private
+
+usethis::use_data(rail_periods, overwrite = TRUE)
+
+write.csv(rail_periods, row.names = FALSE, quote = FALSE,
+          file=gzfile("./inst/extdata/rail_periods.csv.gz"))
+
+# Compare with information received from the Office for Rail and Road
+
+path_orr <- here("inst", "extdata", "Period dates.xls")
+
+periods_orr <-
+  read_excel(path_orr,
+             skip = 5,
+             n_max = 46 - 5,
+             col_names = FALSE,
+             col_types = c(rep("skip", 3),
+                           "text",
+                           "skip",
+                           rep("date", 14))) %>%
+  mutate_at(-1, as_date) %>%
+  rename(financial_year = X__1) %>%
+  gather(period, start_date, -financial_year) %>%
+  mutate(financial_year = str_replace(financial_year, "-", "/"),
+         period = as.integer(str_sub(period, 4L)) - 1L) %>%
+  group_by(financial_year) %>%
+  arrange(financial_year, period, start_date) %>%
+  mutate(end_date = lead(start_date),
+         end_date = if_else(period == 13, end_date, end_date - days(1)),
+         days = as.integer(interval(start_date, end_date) / days(1))) %>%
+  filter(period != 14L)
+
+# There's one different boundary between periods 12 and 13 of 2009/10, where the
+# FOI draws it at 2010-03-02/03 vs the ORR at 2010-03-06/07.  The ORR agrees
+# with the private source.
+anti_join(periods_foi, periods_orr) %>%
+  left_join(periods_orr, by = c("financial_year", "period")) %>%
+  print(n = Inf)
+
+# There's one different boundary between periods 10 and 11 of 2002/03, where the
+# private source draws it at 2002-12-31/2003-01-01 vs the ORR at
+# 2003-01-04/2003-01-05.  The FOI source doesn't go back this far.
+anti_join(periods_private, periods_orr) %>%
+  left_join(periods_orr, by = c("financial_year", "period")) %>%
+  print(n = Inf)
+
+# I now trust the ORR source the most, so this will be the one to publish in the
+# package (third time lucky?)
+
+rail_periods <- periods_orr
 
 usethis::use_data(rail_periods, overwrite = TRUE)
 

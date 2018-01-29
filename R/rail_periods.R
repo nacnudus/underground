@@ -8,7 +8,7 @@
 #' longer so that each year is covered by exactly 13 periods, beginning on the
 #' April the 1st.
 #'
-#' @format A data frame with 568 rows and 5 variables:
+#' @format A data frame with 533 rows and 5 variables:
 #'
 #' * `year`     The financial year (from 1 April to 31 May, e.g. "2011/12")
 #' * `period`   The number of the four-week period within the year (1 to 13)
@@ -19,14 +19,10 @@
 #'                year is covered by exactly 13 periods.
 #'
 #' @source
-#' The source is not disclosed.  It is similar to a
-#' [document](https://www.whatdotheyknow.com/request/historic_knowledge_of_london_sta)
-#' obtained via the Freedom of Information Act, except the boundary between
-#' periods 12 and 13 in the year 2009/10.  Another
-#' [source](http://dataportal.orr.gov.uk/displayreport/report/html/d986b6bf-5ca7-45c4-800c-75156d93e1a8)
-#' by the Office for Rail and Road was used to confirm that boundary.  Other
-#' sources have been seen but not used, for example
-#' https://data.london.gov.uk/dataset/london-underground-performance-reports,
-#' the file "tfl-tube-performance.xls".  Enquiries for definitive information
-#' are being made through official channels.
+#' The data was obtained by private corresponce with the [Office for Road and
+#' Rail](orr.gov.uk).  It is similar to data published
+#' [online](http://dataportal.orr.gov.uk/displayreport/report/html/d986b6bf-5ca7-45c4-800c-75156d93e1a8),
+#' but over a much wider range of years.  Similar data published by others
+#' differs slightly.  This package author regards the Office for Road and Rail
+#' as the authoritative source.
 "rail_periods"
