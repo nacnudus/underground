@@ -100,6 +100,7 @@ periods_orr <-
   mutate(end_date = lead(start_date),
          end_date = if_else(period == 13, end_date, end_date - days(1)),
          days = as.integer(interval(start_date, end_date) / days(1))) %>%
+  ungroup() %>%
   filter(period != 14L)
 
 # There's one different boundary between periods 12 and 13 of 2009/10, where the
