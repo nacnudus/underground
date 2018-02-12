@@ -3,7 +3,7 @@
 
 # underground
 
-**Updated on 2018-01-11 with data up to 2017-12-09**
+**Updated on 2018-02-12 with data up to 2018-01-06**
 
 London Underground performance data is published in
 [spreadsheets](https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance).
@@ -25,14 +25,6 @@ devtools::install_github("nacnudus/underground")
 ``` r
 library(underground)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library(ggplot2)
 
 underground %>%
@@ -53,7 +45,7 @@ underground %>%
           subtitle = "Period 9 2017/18 from 12 November 2017 to 9 December 2017")
 ```
 
-<img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 ## Control periods
 
