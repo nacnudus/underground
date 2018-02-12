@@ -15,7 +15,16 @@ knitr::opts_chunk$set(
 
 # underground
 
-**Updated on 2018-01-11 with data up to 2017-12-09**
+```{r, include = FALSE}
+library(dplyr)
+library(underground)
+max_date  <-
+  inner_join(rail_periods, underground, by = c("year", "period")) %>%
+  summarise(end_date = max(end_date)) %>%
+  pull(end_date)
+```
+
+**Updated on `r Sys.Date()` with data up to `r max_date`**
 
 London Underground performance data is published in
 [spreadsheets](https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance).
