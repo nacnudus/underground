@@ -6,7 +6,9 @@ library(directlabels)
 library(lubridate)
 library(here)
 
+xlsx_url <- "https://tfl.gov.uk/cdn/static/cms/documents/lu-performance-data-almanac.xlsx"
 path <- here("inst", "extdata", "lu-performance-data-almanac.xlsx")
+download.file(xlsx_url, path, mode = "wb")
 book <- xlsx_cells(path)
 formats <- xlsx_formats(path)
 sheet_names <- xlsx_sheet_names(path)
