@@ -18,13 +18,20 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="London Underground Services Performance Data — underground" />
+
+<meta property="og:description" content="A dataset of the London Underground services performance data timeseries from
+2003/04 to 3 March 2018." />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +54,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">underground</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">underground</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -63,7 +74,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/nacnudus/underground">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -76,11 +92,12 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>London Underground Services Performance Data</h1>
+    <small>Source: <a href='https://github.com/nacnudus/underground/blob/master/R/underground.R'><code>R/underground.R</code></a></small>
     </div>
 
     
     <p>A dataset of the London Underground services performance data timeseries from
-2003/04 to 9 December 2017.</p>
+2003/04 to 3 March 2018.</p>
     
 
     <pre class="usage"><span class='no'>underground</span></pre>
@@ -123,8 +140,8 @@ other things as follows.</p><ul>
 <li><p>Escalator and Lift Mean Time Between Failures (Days) is broken down by
 <code>asset</code> (lift or escalator)</p></li>
 </ul>
-    <p>What the <code>company</code> column means:
-    <code>BCV</code> = Bakerloo, Central, Victoria (and Waterlool &amp; City)
+    <p>What the <code>company</code> column means:</p>
+<p><code>BCV</code> = Bakerloo, Central, Victoria (and Waterlool &amp; City)
 <code>SSL</code> = Sub-Surface Lines (District, Hammersmith and City, Metropolitan,
 Circle and East London)
 <code>JNP</code> = Jubilee, Northern, Picadilly</p>
@@ -167,3 +184,4 @@ Hammersmith and City, Metropolitan, Circle and East London lines." DavidB601
 
   </body>
 </html>
+

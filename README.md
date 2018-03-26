@@ -3,7 +3,7 @@
 
 # underground
 
-**Updated on 2018-02-12 with data up to 2018-01-06**
+**Updated on 2018-03-26 with data up to 2018-01-06**
 
 London Underground performance data is published in
 [spreadsheets](https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance).
@@ -31,7 +31,7 @@ underground %>%
   filter(metric == "Train delays longer than 15 minutes",
          year == "2017/18",
          is.na(quarter),
-         period == 9,
+         period == 11,
          line != "All Lines") %>%
   mutate(fill= underground_colours[line]) %>%
   select(line, value, fill) %>%
@@ -42,7 +42,7 @@ underground %>%
   xlab("") +
   ylab("") +
   ggtitle("Train delays longer than 15 minutes",
-          subtitle = "Period 9 2017/18 from 12 November 2017 to 9 December 2017")
+          subtitle = "Period 11 2017/18 from 7 January to 3 February 2018")
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />

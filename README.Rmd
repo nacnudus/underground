@@ -52,7 +52,7 @@ underground %>%
   filter(metric == "Train delays longer than 15 minutes",
          year == "2017/18",
          is.na(quarter),
-         period == 9,
+         period == 11,
          line != "All Lines") %>%
   mutate(fill= underground_colours[line]) %>%
   select(line, value, fill) %>%
@@ -63,7 +63,7 @@ underground %>%
   xlab("") +
   ylab("") +
   ggtitle("Train delays longer than 15 minutes",
-          subtitle = "Period 9 2017/18 from 12 November 2017 to 9 December 2017")
+          subtitle = "Period 11 2017/18 from 7 January to 3 February 2018")
 ```
 
 ## Control periods

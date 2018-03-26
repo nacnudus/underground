@@ -8,8 +8,12 @@
 <title>London Underground Performance Data • underground</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="London Underground Performance Data">
+<meta property="og:description" content="Redistributes London Underground performance data in a more
+    convenient form for analysis than spreadsheets.">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -24,8 +28,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">underground</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">underground</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -38,7 +46,14 @@
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/nacnudus/underground">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -58,7 +73,7 @@
 <div id="underground" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#underground" class="anchor"></a>underground</h1></div>
-<p><strong>Updated on 2018-02-12 with data up to 2018-01-06</strong></p>
+<p><strong>Updated on 2018-03-26 with data up to 2018-02-03</strong></p>
 <p>London Underground performance data is published in <a href="https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance">spreadsheets</a>. This R package makes it available in <a href="https://github.com/nacnudus/underground/tree/master/inst/extdata">csv files</a>, or in an R data frame.</p>
 <p>The secret sauce is <a href="https://nacnudus.github.io/tidyxl">tidyxl</a> with a dash of <a href="https://nacnudus.github.io/unpivotr">unpivotr</a>.</p>
 <div id="installation" class="section level2">
@@ -77,7 +92,7 @@
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(metric <span class="op">==</span><span class="st"> "Train delays longer than 15 minutes"</span>,</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">         year <span class="op">==</span><span class="st"> "2017/18"</span>,</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">         <span class="kw">is.na</span>(quarter),</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">         period <span class="op">==</span><span class="st"> </span><span class="dv">9</span>,</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">         period <span class="op">==</span><span class="st"> </span><span class="dv">11</span>,</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">         line <span class="op">!=</span><span class="st"> "All Lines"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">fill=</span> underground_colours[line]) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(line, value, fill) <span class="op">%&gt;%</span></a>
@@ -88,7 +103,7 @@
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">xlab</a></span>(<span class="st">""</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb2-18" data-line-number="18"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="st">""</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb2-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Train delays longer than 15 minutes"</span>,</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">          <span class="dt">subtitle =</span> <span class="st">"Period 9 2017/18 from 12 November 2017 to 9 December 2017"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-20" data-line-number="20">          <span class="dt">subtitle =</span> <span class="st">"Period 11 2017/18 from 7 January to 3 February 2018"</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
 </div>
 <div id="control-periods" class="section level2">
@@ -161,14 +176,30 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2 class="hasAnchor">
-<a href="#sidebar" class="anchor"></a>License</h2>
-<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
-<h2>Developers</h2>
+    <div class="links">
+<h2>Links</h2>
 <ul class="list-unstyled">
-<li>Duncan Garmonsway <br><small class="roles"> Author, maintainer </small> </li>
+<li>Browse source code at <br><a href="https://github.com/nacnudus/underground">https://​github.com/​nacnudus/​underground</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/nacnudus/underground/issues">https://​github.com/​nacnudus/​underground/​issues</a>
+</li>
 </ul>
 </div>
+<div class="license">
+<h2>License</h2>
+<ul class="list-unstyled">
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+</ul>
+</div>
+<div class="developers">
+<h2>Developers</h2>
+<ul class="list-unstyled">
+<li>Duncan Garmonsway <br><small class="roles"> Author, maintainer </small>  </li>
+</ul>
+</div>
+
+      </div>
 
 </div>
 
