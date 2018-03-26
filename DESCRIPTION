@@ -11,3 +11,5 @@ LazyData: true
 ByteCompile: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
+URL: https://github.com/nacnudus/underground
+BugReports: https://github.com/nacnudus/underground/issues
