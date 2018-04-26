@@ -21,8 +21,10 @@ annually <- function(cells) {
     select(row, col, year = character)
   category <-
     cells %>%
-    anchor(3, 1) %>%
-    extend_S(cells, boundary = ~ is.na(.$character)) %>%
+    filter(row >= 3L, col == 1L) %>%
+    arrange(row) %>%
+    mutate(bold = formats$local$font$bold[local_format_id]) %>%
+    filter(!lag(as.logical(cumsum(bold)), default = FALSE)) %>%
     select(row, col, category = character)
   datacells <-
     cells %>%
