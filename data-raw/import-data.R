@@ -34,8 +34,8 @@ annually <- function(cells) {
     select(row, col, value = numeric)
   datacells %>%
     mutate(metric = metric) %>%
-    W(category) %>%
-    N(year) %>%
+    enhead(category, "W") %>%
+    enhead(year, "N") %>%
     select(-row, -col)
 }
 
@@ -67,9 +67,9 @@ four_weekly <- function(cells, first_row) {
     select(row, col, value = numeric)
   datacells %>%
     mutate(metric = metric) %>%
-    W(category) %>%
-    WNW(year) %>% # trick to 'chunk' by treating a column header as a row header
-    N(period) %>%
+    enhead(category, "W") %>%
+    enhead(year, "WNW") %>% # trick to 'chunk' by treating a column header as a row header
+    enhead(period, "N") %>%
     select(-row, -col)
 }
 
@@ -100,12 +100,11 @@ quarterly <- function(cells, first_row) {
     select(row, col, value = numeric)
   datacells %>%
     mutate(metric = metric) %>%
-    W(category) %>%
-    WNW(year) %>% # trick to 'chunk' by treating a column header as a row header
-    N(quarter) %>%
+    enhead(category, "W") %>%
+    enhead(year, "WNW") %>% # trick to 'chunk' by treating a column header as a row header
+    enhead(quarter, "N") %>%
     select(-row, -col)
 }
-
 
 sheets_by_line <-
   c("Scheduled kilometres",
