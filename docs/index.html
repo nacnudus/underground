@@ -19,7 +19,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -63,17 +63,16 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     
 
     
     
-<div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div id="underground" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#underground" class="anchor"></a>underground</h1></div>
-<p><strong>Updated on 2018-03-26 with data up to 2018-02-03</strong></p>
+<p><strong>Updated on 2018-05-02 with data up to 2018-03-31</strong></p>
 <p>London Underground performance data is published in <a href="https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance">spreadsheets</a>. This R package makes it available in <a href="https://github.com/nacnudus/underground/tree/master/inst/extdata">csv files</a>, or in an R data frame.</p>
 <p>The secret sauce is <a href="https://nacnudus.github.io/tidyxl">tidyxl</a> with a dash of <a href="https://nacnudus.github.io/unpivotr">unpivotr</a>.</p>
 <div id="installation" class="section level2">
@@ -92,7 +91,7 @@
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(metric <span class="op">==</span><span class="st"> "Train delays longer than 15 minutes"</span>,</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">         year <span class="op">==</span><span class="st"> "2017/18"</span>,</a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">         <span class="kw">is.na</span>(quarter),</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">         period <span class="op">==</span><span class="st"> </span><span class="dv">11</span>,</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">         period <span class="op">==</span><span class="st"> </span><span class="dv">13</span>,</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">         line <span class="op">!=</span><span class="st"> "All Lines"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">fill=</span> underground_colours[line]) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(line, value, fill) <span class="op">%&gt;%</span></a>
@@ -103,7 +102,7 @@
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">xlab</a></span>(<span class="st">""</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb2-18" data-line-number="18"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="st">""</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb2-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Train delays longer than 15 minutes"</span>,</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">          <span class="dt">subtitle =</span> <span class="st">"Period 11 2017/18 from 7 January to 3 February 2018"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-20" data-line-number="20">          <span class="dt">subtitle =</span> <span class="st">"Period 13 2017/18 from 4 March to 31 March 2018"</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
 </div>
 <div id="control-periods" class="section level2">
@@ -117,60 +116,58 @@
 <a href="#metrics" class="anchor"></a>Metrics</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="http://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(underground, metric) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/pull.html">pull</a></span>(metric)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;  [1] "Scheduled kilometres"                                                                                                              </span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;  [2] "Scheduled kilometres - Peak"                                                                                                       </span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  [3] "Scheduled kilometres - Offpeak"                                                                                                    </span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  [4] "Operated kilometres"                                                                                                               </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  [5] "Operated kilometres - Peak"                                                                                                        </span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  [6] "Operated kilometres - Off Peak"                                                                                                    </span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  [7] "% of Schedule Operated"                                                                                                            </span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  [8] "% of Schedule Operated - Peak"                                                                                                     </span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  [9] "% of Schedule Operated - Off Peak"                                                                                                 </span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; [10] "% of Scheduled Kilometres (Excluding Industrial Action)"                                                                           </span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; [11] "Timetabled kilometres"                                                                                                             </span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; [12] "% of Timetabled Kilometres"                                                                                                        </span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; [13] "Scheduled Journey Time"                                                                                                            </span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; [14] "Total Journey Time"                                                                                                                </span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; [15] "Excess Journey Time"                                                                                                               </span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; [16] "Excess Journey Time (Excl Industrial Action)"                                                                                      </span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; [17] "Excess AEI Time"                                                                                                                   </span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; [18] "Excess Ticket Purchase Time"                                                                                                       </span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; [19] "Excess Platform Wait Time"                                                                                                         </span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt; [20] "Excess On Train Time"                                                                                                              </span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt; [21] "Excess Station Journey Time"                                                                                                       </span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt; [22] "Excess Train Journey Time"                                                                                                         </span></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt; [23] "Excess Planned Closures Time"                                                                                                      </span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; [24] "Train delays longer than 15 minutes"                                                                                               </span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; [25] "Station closures"                                                                                                                  </span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; [26] "Average Lost Customer Hours per period - all causes and all attribution parties [Network by Line]"                                 </span></a>
-<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt; [27] "Escalator Availability"                                                                                                            </span></a>
-<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; [28] "Lift Availability"                                                                                                                 </span></a>
-<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt; [29] "Rolling Stock MDBF (KM)"                                                                                                           </span></a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; [30] "Number of Service Control failures"                                                                                                </span></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; [31] "Number of Track failures"                                                                                                          </span></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; [32] "Passenger Journeys ('000)"                                                                                                         </span></a>
-<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; [33] "Number of Engineering overruns"                                                                                                    </span></a>
-<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; [34] "Asset related LCH"                                                                                                                 </span></a>
-<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; [35] "Escalator and Lift Mean Time Between Failures (Days)"                                                                              </span></a>
-<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; [36] "Average Lost Customer Hours per period - all causes and all attribution parties [Network by category]"                             </span></a>
-<a class="sourceLine" id="cb3-39" data-line-number="39"><span class="co">#&gt; [37] "Average Lost Customer Hours per period - all causes and all attribution parties [Bakerloo line by category]"                       </span></a>
-<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="co">#&gt; [38] "Average Lost Customer Hours per period - all causes and all attribution parties [Central line by category]"                        </span></a>
-<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt; [39] "Average Lost Customer Hours per period - all causes and all attribution parties [Circle and Hammersmith and City line by category]"</span></a>
-<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt; [40] "Average Lost Customer Hours per period - all causes and all attribution parties [District line by category]"                       </span></a>
-<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt; [41] "Average Lost Customer Hours per period - all causes and all attribution parties [Jubilee line by category]"                        </span></a>
-<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; [42] "Average Lost Customer Hours per period - all causes and all attribution parties [Metropolitan line by category]"                   </span></a>
-<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co">#&gt; [43] "Average Lost Customer Hours per period - all causes and all attribution parties [Northern line by category]"                       </span></a>
-<a class="sourceLine" id="cb3-46" data-line-number="46"><span class="co">#&gt; [44] "Average Lost Customer Hours per period - all causes and all attribution parties [Piccadilly line by category]"                     </span></a>
-<a class="sourceLine" id="cb3-47" data-line-number="47"><span class="co">#&gt; [45] "Average Lost Customer Hours per period - all causes and all attribution parties [Victoria line by category]"                       </span></a>
-<a class="sourceLine" id="cb3-48" data-line-number="48"><span class="co">#&gt; [46] "Average Lost Customer Hours per period - all causes and all attribution parties [Waterloo and City line by category]"              </span></a>
-<a class="sourceLine" id="cb3-49" data-line-number="49"><span class="co">#&gt; [47] "CSS Overall Evaluation"                                                                                                            </span></a>
-<a class="sourceLine" id="cb3-50" data-line-number="50"><span class="co">#&gt; [48] "CSS Train Service"                                                                                                                 </span></a>
-<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt; [49] "CSS Train and Station Information"                                                                                                 </span></a>
-<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; [50] "CSS Station Staff Helpfulness and Availability"                                                                                    </span></a>
-<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; [51] "CSS Customer Safety and Security"                                                                                                  </span></a>
-<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; [52] "CSS Cleanliness"                                                                                                                   </span></a>
-<a class="sourceLine" id="cb3-55" data-line-number="55"><span class="co">#&gt; [53] "Operated kilometres - Peak and Off Peak breakdown"</span></a></code></pre></div>
-</div>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;  [1] "% of Schedule Operated"                                                                                                            </span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;  [2] "% of Schedule Operated - Off Peak"                                                                                                 </span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  [3] "% of Schedule Operated - Peak"                                                                                                     </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  [4] "% of Scheduled Kilometres (Excluding Industrial Action)"                                                                           </span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  [5] "% of Timetabled Kilometres"                                                                                                        </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  [6] "Asset related LCH"                                                                                                                 </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  [7] "Average Lost Customer Hours per period - all causes and all attribution parties [Bakerloo line by category]"                       </span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  [8] "Average Lost Customer Hours per period - all causes and all attribution parties [Central line by category]"                        </span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  [9] "Average Lost Customer Hours per period - all causes and all attribution parties [Circle and Hammersmith and City line by category]"</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; [10] "Average Lost Customer Hours per period - all causes and all attribution parties [District line by category]"                       </span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; [11] "Average Lost Customer Hours per period - all causes and all attribution parties [Jubilee line by category]"                        </span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; [12] "Average Lost Customer Hours per period - all causes and all attribution parties [Metropolitan line by category]"                   </span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; [13] "Average Lost Customer Hours per period - all causes and all attribution parties [Network by category]"                             </span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; [14] "Average Lost Customer Hours per period - all causes and all attribution parties [Network by Line]"                                 </span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; [15] "Average Lost Customer Hours per period - all causes and all attribution parties [Northern line by category]"                       </span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; [16] "Average Lost Customer Hours per period - all causes and all attribution parties [Piccadilly line by category]"                     </span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; [17] "Average Lost Customer Hours per period - all causes and all attribution parties [Victoria line by category]"                       </span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; [18] "Average Lost Customer Hours per period - all causes and all attribution parties [Waterloo and City line by category]"              </span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; [19] "CSS Cleanliness"                                                                                                                   </span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt; [20] "CSS Customer Safety and Security"                                                                                                  </span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt; [21] "CSS Overall Evaluation"                                                                                                            </span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt; [22] "CSS Station Staff Helpfulness and Availability"                                                                                    </span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt; [23] "CSS Train and Station Information"                                                                                                 </span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; [24] "CSS Train Service"                                                                                                                 </span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; [25] "Escalator and Lift Mean Time Between Failures (Days)"                                                                              </span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; [26] "Escalator Availability"                                                                                                            </span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt; [27] "Excess AEI Time"                                                                                                                   </span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; [28] "Excess Journey Time"                                                                                                               </span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt; [29] "Excess Journey Time (Excl Industrial Action)"                                                                                      </span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; [30] "Excess On Train Time"                                                                                                              </span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; [31] "Excess Planned Closures Time"                                                                                                      </span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; [32] "Excess Platform Wait Time"                                                                                                         </span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; [33] "Excess Station Journey Time"                                                                                                       </span></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; [34] "Excess Ticket Purchase Time"                                                                                                       </span></a>
+<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; [35] "Excess Train Journey Time"                                                                                                         </span></a>
+<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; [36] "Lift Availability"                                                                                                                 </span></a>
+<a class="sourceLine" id="cb3-39" data-line-number="39"><span class="co">#&gt; [37] "Number of Engineering overruns"                                                                                                    </span></a>
+<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="co">#&gt; [38] "Number of Service Control failures"                                                                                                </span></a>
+<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt; [39] "Number of Track failures"                                                                                                          </span></a>
+<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt; [40] "Operated kilometres"                                                                                                               </span></a>
+<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt; [41] "Operated kilometres - Off Peak"                                                                                                    </span></a>
+<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; [42] "Operated kilometres - Peak"                                                                                                        </span></a>
+<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co">#&gt; [43] "Passenger Journeys ('000)"                                                                                                         </span></a>
+<a class="sourceLine" id="cb3-46" data-line-number="46"><span class="co">#&gt; [44] "Rolling Stock MDBF (KM)"                                                                                                           </span></a>
+<a class="sourceLine" id="cb3-47" data-line-number="47"><span class="co">#&gt; [45] "Scheduled Journey Time"                                                                                                            </span></a>
+<a class="sourceLine" id="cb3-48" data-line-number="48"><span class="co">#&gt; [46] "Scheduled kilometres"                                                                                                              </span></a>
+<a class="sourceLine" id="cb3-49" data-line-number="49"><span class="co">#&gt; [47] "Scheduled kilometres - Offpeak"                                                                                                    </span></a>
+<a class="sourceLine" id="cb3-50" data-line-number="50"><span class="co">#&gt; [48] "Scheduled kilometres - Peak"                                                                                                       </span></a>
+<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt; [49] "Station closures"                                                                                                                  </span></a>
+<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; [50] "Timetabled kilometres"                                                                                                             </span></a>
+<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; [51] "Total Journey Time"                                                                                                                </span></a>
+<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; [52] "Train delays longer than 15 minutes"</span></a></code></pre></div>
 </div>
 </div>
   </div>
@@ -214,6 +211,8 @@
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

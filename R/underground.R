@@ -1,7 +1,7 @@
 #' London Underground Services Performance Data
 #'
 #' A dataset of the London Underground services performance data timeseries from
-#' 2003/04 to 3 March 2018.
+#' 2003/04 to 31 March 2018.
 #'
 #' This dataset may be updated approximately monthly.  To use the latest data,
 #' reinstall the package from the GitHub repository
@@ -16,7 +16,7 @@
 #' * Escalator and Lift Mean Time Between Failures (Days) is broken down by
 #'   `asset` (lift or escalator)
 #'
-#' @format A data frame with 103,082 rows and 8 variables:
+#' @format A data frame with 106,629 rows and 9 variables:
 #'
 #' * `metric`   The title of the data series
 #' * `year`     Year beginning 1 April

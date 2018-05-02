@@ -1,8 +1,6 @@
 library(tidyverse)
 library(tidyxl)
-library(readxl)
 library(unpivotr)
-library(directlabels)
 library(lubridate)
 library(here)
 
@@ -12,98 +10,54 @@ download.file(xlsx_url, path, mode = "wb")
 book <- xlsx_cells(path)
 formats <- xlsx_formats(path)
 sheet_names <- xlsx_sheet_names(path)
+fill_rgb <- formats$local$fill$patternFill$fgColor$rgb
+bold <- formats$local$font$bold
 
-annually <- function(cells) {
-  metric <- filter(cells, address == "A1")$character
-  year <-
+partition_sheet <- function(cells) {
+  corner <-
     cells %>%
-    filter(row == 2, col >= 2, !is.na(character)) %>%
-    select(row, col, year = character)
-  category <-
-    cells %>%
-    filter(row >= 3L, col == 1L) %>%
+    filter(col == 2L,
+           fill_rgb[local_format_id] == "FF1F497D") %>%
     arrange(row) %>%
-    mutate(bold = formats$local$font$bold[local_format_id]) %>%
-    filter(!lag(as.logical(cumsum(bold)), default = FALSE)) %>%
-    select(row, col, category = character)
-  datacells <-
-    cells %>%
-    filter(row %in% unique(category$row),
-           col >= 2,
-           !is.na(numeric)) %>%
-    select(row, col, value = numeric)
-  datacells %>%
-    mutate(metric = metric) %>%
-    enhead(category, "W") %>%
-    enhead(year, "N") %>%
-    select(-row, -col)
+    slice(1) %>%
+    mutate(col = 1L) %>%
+    select(row, col) %>%
+    bind_rows(tibble(row = 2L, col = 1L))
+  partition(cells, corner, strict = FALSE) %>%
+    arrange(partition) %>%
+    mutate(partition = c("annual", "other"))
 }
 
-four_weekly <- function(cells, first_row) {
-  metric <- filter(cells, address == "A1")$character
-  period <-
-    cells %>%
-    filter(row == first_row, col >= 2, !is.na(numeric)) %>%
-    select(row, col, period = numeric) %>%
-    mutate(period = as.integer(period))
-  year <-
-    cells %>%
-    filter(row >= first_row + 1,
-           formats$local$alignment$horizontal[local_format_id] == "centerContinuous",
-           !is.na(formats$local$border$bottom$style[local_format_id]),
-           !is.na(character)) %>%
-    select(row, col, year = character)
-  category <-
-    cells %>%
-    filter(col == 1,
-           !is.na(character)) %>%
-    select(row, col, category = character)
-  datacells <-
-    cells %>%
-    filter(row >= first_row + 1,
-           col >= 2,
-           formats$local$alignment$horizontal[local_format_id] != "centerContinuous",
-           !is.na(numeric)) %>%
-    select(row, col, value = numeric)
-  datacells %>%
-    mutate(metric = metric) %>%
-    enhead(category, "W") %>%
-    enhead(year, "WNW") %>% # trick to 'chunk' by treating a column header as a row header
-    enhead(period, "N") %>%
-    select(-row, -col)
+parse_annual <- function(cells) {
+  cells %>%
+    behead("N", "year") %>%
+    behead("W", "category") %>%
+    filter(data_type == "numeric") %>%
+    select(year, category, value = numeric)
 }
 
-quarterly <- function(cells, first_row) {
-  metric <- filter(cells, address == "A1")$character
-  quarter <-
-    cells %>%
-    filter(row == first_row, col >= 2, !is.na(character)) %>%
-    select(row, col, quarter = character)
-  year <-
-    cells %>%
-    filter(row >= first_row + 1,
-           formats$local$alignment$horizontal[local_format_id] == "centerContinuous",
-           !is.na(formats$local$border$bottom$style[local_format_id]),
-           !is.na(character)) %>%
-    select(row, col, year = character)
-  category <-
-    cells %>%
-    filter(col == 1,
-           !is.na(character)) %>%
-    select(row, col, category = character)
-  datacells <-
-    cells %>%
-    filter(row >= first_row + 1,
-           col >= 2,
-           formats$local$alignment$horizontal[local_format_id] != "centerContinuous",
-           !is.na(numeric)) %>%
-    select(row, col, value = numeric)
-  datacells %>%
-    mutate(metric = metric) %>%
-    enhead(category, "W") %>%
-    enhead(year, "WNW") %>% # trick to 'chunk' by treating a column header as a row header
-    enhead(quarter, "N") %>%
-    select(-row, -col)
+parse_periodic <- function(cells) {
+  cells %>%
+    mutate(col = if_else(col == 2L & bold[local_format_id] & data_type == "character",
+                         0L,
+                         col)) %>%
+    behead("WNW", "year") %>%
+    behead("N", "period") %>%
+    behead("W", "category") %>%
+    filter(data_type == "numeric") %>%
+    select(year, period, category, value = numeric)
+}
+
+parse_quarterly <- function(cells) {
+  cells %>%
+    mutate(col = if_else(col == 2L & bold[local_format_id] & data_type == "character",
+                         0L,
+                         col)) %>%
+    behead("WNW", "year") %>%
+    behead("N", "quarter") %>%
+    behead("W", "category") %>%
+    filter(data_type == "numeric") %>%
+    select(year, quarter, category, value = numeric)
 }
 
 sheets_by_line <-
@@ -111,7 +65,6 @@ sheets_by_line <-
     "Scheduled kilometres PEAK",
     "Scheduled kilometres OFFPEAK",
     "Operated KMs",
-    "Operated KMs PEAK old",
     "Operated KMs PEAK",
     "Operated KMs OFFPEAK",
     "% Schedule operated",
@@ -162,130 +115,88 @@ sheets_customer_satisfaction_survey <-
     "CSS Safety and Security",
     "CSS Cleanliness")
 
-# From https://en.wikipedia.org/wiki/Talk%3ATransport_for_London
-#
-# BCV = Bakerloo, Central, Victoria (and Waterlool & City)
-# SSL = Sub-Surface Lines (District, Hammersmith and City, Metropolitan, Circle
-#       and East London)
-# JNP = Jubilee, Northern, Picadilly
-#
-# "The maintenance and upgrading of the London Underground Network is carried
-# out by different companies. Tube Lines in responsible for the Jubilee,
-# Northern and Piccadilly Lines (JNP), Metronet BCV is responsible for the
-# Bakerloo, Central and Victoria Lines (BCV) as well as the Waterloo and City
-# Line, whilst Metronet SSL (sub surface lines) is responsible for the District,
-# Hammersmith and City, Metropolitan, Circle and East London lines." DavidB601
-# 20:57, 7 November 2006 (UTC)
-
-general_four_weekly <-
+sheets <-
   book %>%
+  filter(!is_blank,
+         sheet %in% c(sheets_by_line,
+                      sheets_lost_customer_hours_by_category,
+                      "L&E MTBF",
+                      "No engineer overruns",
+                      "Asset related LCH",
+                      sheets_customer_satisfaction_survey)) %>%
+  nest(-sheet, .key = "cells") %>%
+  mutate(metric = map_chr(cells, ~ filter(.x, address == "A1")$character),
+         cells = map(cells, partition_sheet)) %>%
+  unnest() %>%
+  spread(partition, cells)
+
+general <-
+  sheets %>%
   filter(sheet %in% sheets_by_line) %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, four_weekly, first_row = 14)) %>%
-  unnest() %>%
-  rename(line = category)
-general_annually <-
-  book %>%
-  filter(sheet %in% sheets_by_line) %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, annually)) %>%
-  unnest() %>%
-  rename(line = category)
+  mutate(annual = map(annual, parse_annual),
+         annual = map(annual, ~ rename(.x, line = category)),
+         other = map(other, parse_periodic),
+         other = map(other, ~ rename(.x, line = category)))
 
-lost_customer_hours_by_category_four_weekly <-
-  book %>%
+lost_customer_hours <-
+  sheets %>%
   filter(sheet %in% sheets_lost_customer_hours_by_category) %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, four_weekly, first_row = 26)) %>%
-  unnest()
-lost_customer_hours_by_category_annually <-
-  book %>%
-  filter(sheet %in% sheets_lost_customer_hours_by_category) %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, annually)) %>%
-  unnest()
+  mutate(annual = map(annual, parse_annual),
+         other = map(other, parse_periodic))
 
-lifts_and_escalators_four_weekly <-
-  book %>%
+lifts_and_escalators <-
+  sheets %>%
   filter(sheet == "L&E MTBF") %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, four_weekly, first_row = 12)) %>%
-  unnest() %>%
-  rename(asset = category)
-lifts_and_escalators_annually <-
-  book %>%
-  filter(sheet == "L&E MTBF") %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, annually)) %>%
-  unnest() %>%
-  rename(asset = category)
+  mutate(annual = map(annual, parse_annual),
+         annual = map(annual, ~ rename(.x, asset = category)),
+         other = map(other, parse_periodic),
+         other = map(other, ~ rename(.x, asset = category)))
 
-asset_related_lost_customer_hours_four_weekly <-
-  book %>%
-  filter(sheet == "Asset related LCH") %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, four_weekly, first_row = 13)) %>%
-  unnest() %>%
-  rename(company = category)
-asset_related_lost_customer_hours_annually  <-
-  book %>%
-  filter(sheet == "Asset related LCH") %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, annually)) %>%
-  unnest() %>%
-  rename(company = category)
-
-engineering_overruns_four_weekly <-
-  book %>%
+overruns <-
+  sheets %>%
   filter(sheet == "No engineer overruns") %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, four_weekly, first_row = 14)) %>%
-  unnest() %>%
-  rename(company = category)
-engineering_overruns_annually <-
-  book %>%
-  filter(sheet == "No engineer overruns") %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, annually)) %>%
-  unnest() %>%
-  rename(company = category)
+  mutate(annual = map(annual, parse_annual),
+         annual = map(annual, ~ rename(.x, company = category)),
+         other = map(other, parse_periodic),
+         other = map(other, ~ rename(.x, company = category)))
 
-customer_satisfaction_survey_quarterly <-
-  book %>%
+asset_related_lost_customer_hours  <-
+  sheets %>%
+  filter(sheet == "Asset related LCH") %>%
+  mutate(annual = map(annual, parse_annual),
+         annual = map(annual, ~ rename(.x, company = category)),
+         other = map(other, parse_periodic),
+         other = map(other, ~ rename(.x, company = category)))
+
+customer_satisfaction_survey <-
+  sheets %>%
   filter(sheet %in% sheets_customer_satisfaction_survey) %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, quarterly, first_row = 14)) %>%
-  unnest() %>%
-  rename(line = category)
-customer_satisfaction_survey_annually <-
-  book %>%
-  filter(sheet %in% sheets_customer_satisfaction_survey) %>%
-  nest(-sheet) %>%
-  transmute(data = map(data, annually)) %>%
-  unnest() %>%
-  rename(line = category)
+  mutate(annual = map(annual, parse_annual),
+         annual = map(annual, ~ rename(.x, line = category)),
+         other = map(other, parse_quarterly),
+         other = map(other, ~ rename(.x, line = category)))
 
 underground <-
-  bind_rows(general_four_weekly,
-            engineering_overruns_four_weekly,
-            asset_related_lost_customer_hours_four_weekly,
-            lifts_and_escalators_four_weekly,
-            lost_customer_hours_by_category_four_weekly,
-            customer_satisfaction_survey_quarterly,
-            general_annually,
-            engineering_overruns_annually,
-            asset_related_lost_customer_hours_annually,
-            lifts_and_escalators_annually,
-            lost_customer_hours_by_category_annually,
-            customer_satisfaction_survey_annually) %>%
+  list(general,
+       lost_customer_hours,
+       lifts_and_escalators,
+       overruns,
+       asset_related_lost_customer_hours,
+       customer_satisfaction_survey) %>%
+  map(~ gather(.x, period, data, annual, other) %>%
+        select(-period) %>%
+        unnest()) %>%
+  bind_rows() %>%
   select(metric, year, quarter, period, line, category, asset, company, value) %>%
-  mutate(line = as.character(fct_recode(as.factor(line),
+  mutate(period = as.integer(period),
+         line = as.character(fct_recode(as.factor(line),
                                         `Circle + H&C` = "Circle & Ham",
                                         `All Lines` = "Network MDBF",
                                         `All Lines` = "NETWORK JOURNEYS",
                                         `All Lines` = "NETWORK",
                                         `All Lines` = "Network",
-                                        `All Lines` = "TOTAL ALL LINES")))
+                                        `All Lines` = "TOTAL ALL LINES"))) %>%
+  arrange(metric, year, quarter, period, line, category, asset, company)
 
 usethis::use_data(underground, overwrite = TRUE)
 
