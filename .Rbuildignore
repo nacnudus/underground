@@ -3,3 +3,4 @@
 ^LICENSE\.md$
 ^docs$
 ^tags$
+^_pkgdown\.yml$
