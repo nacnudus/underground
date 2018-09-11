@@ -31,7 +31,7 @@ underground
 }
 \description{
 A dataset of the London Underground services performance data timeseries from
-2003/04 to 21 July 2018.
+2003/04 to 23 June 2018.
 }
 \details{
 This dataset may be updated approximately monthly.  To use the latest data,

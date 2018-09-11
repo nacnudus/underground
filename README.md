@@ -3,7 +3,7 @@
 
 # underground
 
-**Updated on 2018-03-26 with data up to 2018-01-06**
+**Updated on 2018-09-11 with data up to 2018-06-23**
 
 London Underground performance data is published in
 [spreadsheets](https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance).
@@ -25,13 +25,21 @@ devtools::install_github("nacnudus/underground")
 ``` r
 library(underground)
 library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 library(ggplot2)
 
 underground %>%
   filter(metric == "Train delays longer than 15 minutes",
-         year == "2017/18",
+         year == "2018/19",
          is.na(quarter),
-         period == 11,
+         period == 3,
          line != "All Lines") %>%
   mutate(fill= underground_colours[line]) %>%
   select(line, value, fill) %>%
@@ -42,10 +50,10 @@ underground %>%
   xlab("") +
   ylab("") +
   ggtitle("Train delays longer than 15 minutes",
-          subtitle = "Period 11 2017/18 from 7 January to 3 February 2018")
+          subtitle = "Period 4 2018/19 from 27 May to 23 June 2018")
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
 
 ## Control periods
 
@@ -61,57 +69,56 @@ Join the dataset `rail_periods` to resolve periods (1 to 13) to dates.
 ``` r
 distinct(underground, metric) %>%
   pull(metric)
-#>  [1] "Scheduled kilometres"                                                                                                              
-#>  [2] "Scheduled kilometres - Peak"                                                                                                       
-#>  [3] "Scheduled kilometres - Offpeak"                                                                                                    
-#>  [4] "Operated kilometres"                                                                                                               
-#>  [5] "Operated kilometres - Peak"                                                                                                        
-#>  [6] "Operated kilometres - Off Peak"                                                                                                    
-#>  [7] "% of Schedule Operated"                                                                                                            
-#>  [8] "% of Schedule Operated - Peak"                                                                                                     
-#>  [9] "% of Schedule Operated - Off Peak"                                                                                                 
-#> [10] "% of Scheduled Kilometres (Excluding Industrial Action)"                                                                           
-#> [11] "Timetabled kilometres"                                                                                                             
-#> [12] "% of Timetabled Kilometres"                                                                                                        
-#> [13] "Scheduled Journey Time"                                                                                                            
-#> [14] "Total Journey Time"                                                                                                                
-#> [15] "Excess Journey Time"                                                                                                               
-#> [16] "Excess Journey Time (Excl Industrial Action)"                                                                                      
-#> [17] "Excess AEI Time"                                                                                                                   
-#> [18] "Excess Ticket Purchase Time"                                                                                                       
-#> [19] "Excess Platform Wait Time"                                                                                                         
-#> [20] "Excess On Train Time"                                                                                                              
-#> [21] "Excess Station Journey Time"                                                                                                       
-#> [22] "Excess Train Journey Time"                                                                                                         
-#> [23] "Excess Planned Closures Time"                                                                                                      
-#> [24] "Train delays longer than 15 minutes"                                                                                               
-#> [25] "Station closures"                                                                                                                  
-#> [26] "Average Lost Customer Hours per period - all causes and all attribution parties [Network by Line]"                                 
-#> [27] "Escalator Availability"                                                                                                            
-#> [28] "Lift Availability"                                                                                                                 
-#> [29] "Rolling Stock MDBF (KM)"                                                                                                           
-#> [30] "Number of Service Control failures"                                                                                                
-#> [31] "Number of Track failures"                                                                                                          
-#> [32] "Passenger Journeys ('000)"                                                                                                         
-#> [33] "Number of Engineering overruns"                                                                                                    
-#> [34] "Asset related LCH"                                                                                                                 
-#> [35] "Escalator and Lift Mean Time Between Failures (Days)"                                                                              
-#> [36] "Average Lost Customer Hours per period - all causes and all attribution parties [Network by category]"                             
-#> [37] "Average Lost Customer Hours per period - all causes and all attribution parties [Bakerloo line by category]"                       
-#> [38] "Average Lost Customer Hours per period - all causes and all attribution parties [Central line by category]"                        
-#> [39] "Average Lost Customer Hours per period - all causes and all attribution parties [Circle and Hammersmith and City line by category]"
-#> [40] "Average Lost Customer Hours per period - all causes and all attribution parties [District line by category]"                       
-#> [41] "Average Lost Customer Hours per period - all causes and all attribution parties [Jubilee line by category]"                        
-#> [42] "Average Lost Customer Hours per period - all causes and all attribution parties [Metropolitan line by category]"                   
-#> [43] "Average Lost Customer Hours per period - all causes and all attribution parties [Northern line by category]"                       
-#> [44] "Average Lost Customer Hours per period - all causes and all attribution parties [Piccadilly line by category]"                     
-#> [45] "Average Lost Customer Hours per period - all causes and all attribution parties [Victoria line by category]"                       
-#> [46] "Average Lost Customer Hours per period - all causes and all attribution parties [Waterloo and City line by category]"              
-#> [47] "CSS Overall Evaluation"                                                                                                            
-#> [48] "CSS Train Service"                                                                                                                 
-#> [49] "CSS Train and Station Information"                                                                                                 
-#> [50] "CSS Station Staff Helpfulness and Availability"                                                                                    
-#> [51] "CSS Customer Safety and Security"                                                                                                  
-#> [52] "CSS Cleanliness"                                                                                                                   
-#> [53] "Operated kilometres - Peak and Off Peak breakdown"
+#>  [1] "% of Schedule Operated"                                                                                                            
+#>  [2] "% of Schedule Operated - Off Peak"                                                                                                 
+#>  [3] "% of Schedule Operated - Peak"                                                                                                     
+#>  [4] "% of Scheduled Kilometres (Excluding Industrial Action)"                                                                           
+#>  [5] "% of Timetabled Kilometres"                                                                                                        
+#>  [6] "Asset related LCH"                                                                                                                 
+#>  [7] "Average Lost Customer Hours per period - all causes and all attribution parties [Bakerloo line by category]"                       
+#>  [8] "Average Lost Customer Hours per period - all causes and all attribution parties [Central line by category]"                        
+#>  [9] "Average Lost Customer Hours per period - all causes and all attribution parties [Circle and Hammersmith and City line by category]"
+#> [10] "Average Lost Customer Hours per period - all causes and all attribution parties [District line by category]"                       
+#> [11] "Average Lost Customer Hours per period - all causes and all attribution parties [Jubilee line by category]"                        
+#> [12] "Average Lost Customer Hours per period - all causes and all attribution parties [Metropolitan line by category]"                   
+#> [13] "Average Lost Customer Hours per period - all causes and all attribution parties [Network by category]"                             
+#> [14] "Average Lost Customer Hours per period - all causes and all attribution parties [Network by Line]"                                 
+#> [15] "Average Lost Customer Hours per period - all causes and all attribution parties [Northern line by category]"                       
+#> [16] "Average Lost Customer Hours per period - all causes and all attribution parties [Piccadilly line by category]"                     
+#> [17] "Average Lost Customer Hours per period - all causes and all attribution parties [Victoria line by category]"                       
+#> [18] "Average Lost Customer Hours per period - all causes and all attribution parties [Waterloo and City line by category]"              
+#> [19] "CSS Cleanliness"                                                                                                                   
+#> [20] "CSS Customer Safety and Security"                                                                                                  
+#> [21] "CSS Overall Evaluation"                                                                                                            
+#> [22] "CSS Station Staff Helpfulness and Availability"                                                                                    
+#> [23] "CSS Train and Station Information"                                                                                                 
+#> [24] "CSS Train Service"                                                                                                                 
+#> [25] "Escalator and Lift Mean Time Between Failures (Days)"                                                                              
+#> [26] "Escalator Availability"                                                                                                            
+#> [27] "Excess AEI Time"                                                                                                                   
+#> [28] "Excess Journey Time"                                                                                                               
+#> [29] "Excess Journey Time (Excl Industrial Action)"                                                                                      
+#> [30] "Excess On Train Time"                                                                                                              
+#> [31] "Excess Planned Closures Time"                                                                                                      
+#> [32] "Excess Platform Wait Time"                                                                                                         
+#> [33] "Excess Station Journey Time"                                                                                                       
+#> [34] "Excess Ticket Purchase Time"                                                                                                       
+#> [35] "Excess Train Journey Time"                                                                                                         
+#> [36] "Lift Availability"                                                                                                                 
+#> [37] "Number of Engineering overruns"                                                                                                    
+#> [38] "Number of Service Control failures"                                                                                                
+#> [39] "Number of Track failures"                                                                                                          
+#> [40] "Operated kilometres"                                                                                                               
+#> [41] "Operated kilometres - Off Peak"                                                                                                    
+#> [42] "Operated kilometres - Peak"                                                                                                        
+#> [43] "Passenger Journeys ('000)"                                                                                                         
+#> [44] "Rolling Stock MDBF (KM)"                                                                                                           
+#> [45] "Scheduled Journey Time"                                                                                                            
+#> [46] "Scheduled kilometres"                                                                                                              
+#> [47] "Scheduled kilometres - Offpeak"                                                                                                    
+#> [48] "Scheduled kilometres - Peak"                                                                                                       
+#> [49] "Station closures"                                                                                                                  
+#> [50] "Timetabled kilometres"                                                                                                             
+#> [51] "Total Journey Time"                                                                                                                
+#> [52] "Train delays longer than 15 minutes"
 ```
