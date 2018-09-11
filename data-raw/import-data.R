@@ -4,7 +4,7 @@ library(unpivotr)
 library(lubridate)
 library(here)
 
-xlsx_url <- "https://tfl.gov.uk/cdn/static/cms/documents/lu-performance-data-almanac.xlsx"
+xlsx_url <- "https://tfl.gov.uk/cdn/static/cms/documents/lu-performance-data.xlsx"
 path <- here("inst", "extdata", "lu-performance-data-almanac.xlsx")
 download.file(xlsx_url, path, mode = "wb")
 book <- xlsx_cells(path)
@@ -114,6 +114,20 @@ sheets_customer_satisfaction_survey <-
     "CSS Staff Helpfulness",
     "CSS Safety and Security",
     "CSS Cleanliness")
+
+# There is also a sheet "Unmanned  - Open, Stations" that is small and already
+# tidy, so it isn't included in this package.  A sample is below.
+#
+#  Month | Hours- Stations Open/Unmanned | Daily hours | Calendar Month Hours	| % Stations Open/Unmanned
+# -------|-------------------------------|-------------|----------------------|-------------------------
+# Jan-18 |                        245.90 |     5240.00 |            162440.00	|                    0.15%
+# Feb-18 |                        142.23 |     5240.00 |            146720.00	|                    0.10%
+# Mar-18 |                        201.82 |     5240.00 |            162440.00	|                    0.12%
+# Apr-18 |                         90.4	 |     5240.00 |            157200.00	|                    0.06%
+# May-18 |                        177.2	 |     5240.00 |            162440.00	|                    0.11%
+# Jun-18 |                        229.43 |     5240.00 |            157200.00	|                    0.15%
+# Jul-18 |                        254.53 |     5240.00 |            162440.00	|                    0.16%
+
 
 sheets <-
   book %>%

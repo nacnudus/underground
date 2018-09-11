@@ -4,7 +4,7 @@
 \name{underground}
 \alias{underground}
 \title{London Underground Services Performance Data}
-\format{A data frame with 106,629 rows and 9 variables:
+\format{A data frame with 108,482 rows and 9 variables:
 \itemize{
 \item \code{metric}   The title of the data series
 \item \code{year}     Year beginning 1 April
@@ -31,7 +31,7 @@ underground
 }
 \description{
 A dataset of the London Underground services performance data timeseries from
-2003/04 to 31 March 2018.
+2003/04 to 21 July 2018.
 }
 \details{
 This dataset may be updated approximately monthly.  To use the latest data,
@@ -64,5 +64,19 @@ Bakerloo, Central and Victoria Lines (BCV) as well as the Waterloo and City
 Line, whilst Metronet SSL (sub surface lines) is responsible for the District,
 Hammersmith and City, Metropolitan, Circle and East London lines." DavidB601
 20:57, 7 November 2006 (UTC)
+
+The source spreadsheet contains a small dataset called  "Unmanned  - Open,
+Stations" that is small and already tidy, so it isn't included in this
+package.  It looks like this.
+
+Month | Hours- Stations Open/Unmanned | Daily hours | Calendar Month Hours	| % Stations Open/Unmanned
+-------|-------------------------------|-------------|-----------------------|-------------------------
+Jan-18 |                        245.90 |     5240.00 |            162440.00	|                    0.15%
+Feb-18 |                        142.23 |     5240.00 |            146720.00	|                    0.10%
+Mar-18 |                        201.82 |     5240.00 |            162440.00	|                    0.12%
+Apr-18 |                         90.4	|     5240.00 |            157200.00	|                    0.06%
+May-18 |                        177.2  |     5240.00 |            162440.00	|                    0.11%
+Jun-18 |                        229.43 |     5240.00 |            157200.00	|                    0.15%
+Jul-18 |                        254.53 |     5240.00 |            162440.00	|                    0.16%
 }
 \keyword{datasets}
