@@ -15,16 +15,7 @@ knitr::opts_chunk$set(
 
 # underground
 
-```{r, include = FALSE}
-library(dplyr)
-library(underground)
-max_date  <-
-  inner_join(rail_periods, underground, by = c("year", "period")) %>%
-  summarise(end_date = max(end_date)) %>%
-  pull(end_date)
-```
-
-**Updated on `r Sys.Date()` with data up to `r max_date`**
+**Updated on `r Sys.Date()` with data up to 2018-06-23**
 
 London Underground performance data is published in
 [spreadsheets](https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance).
@@ -50,9 +41,9 @@ library(ggplot2)
 
 underground %>%
   filter(metric == "Train delays longer than 15 minutes",
-         year == "2017/18",
+         year == "2018/19",
          is.na(quarter),
-         period == 13,
+         period == 3,
          line != "All Lines") %>%
   mutate(fill= underground_colours[line]) %>%
   select(line, value, fill) %>%
@@ -63,7 +54,7 @@ underground %>%
   xlab("") +
   ylab("") +
   ggtitle("Train delays longer than 15 minutes",
-          subtitle = "Period 13 2017/18 from 4 March to 31 March 2018")
+          subtitle = "Period 4 2018/19 from 27 May to 23 June 2018")
 ```
 
 ## Control periods
