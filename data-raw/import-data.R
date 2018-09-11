@@ -24,8 +24,8 @@ partition_sheet <- function(cells) {
     select(row, col) %>%
     bind_rows(tibble(row = 2L, col = 1L))
   partition(cells, corner, strict = FALSE) %>%
-    arrange(partition) %>%
-    mutate(partition = c("annual", "other"))
+    arrange(corner_row, corner_col) %>%
+    transmute(partition = c("annual", "other"), cells)
 }
 
 parse_annual <- function(cells) {
