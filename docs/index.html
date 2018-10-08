@@ -72,7 +72,7 @@
 <div id="underground" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#underground" class="anchor"></a>underground</h1></div>
-<p><strong>Updated on 2018-09-11 with data up to 2018-06-23</strong></p>
+<p><strong>Updated on 2018-10-08 with data up to 2018-08-18</strong></p>
 <p>London Underground performance data is published in <a href="https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance">spreadsheets</a>. This R package makes it available in <a href="https://github.com/nacnudus/underground/tree/master/inst/extdata">csv files</a>, or in an R data frame.</p>
 <p>The secret sauce is <a href="https://nacnudus.github.io/tidyxl">tidyxl</a> with a dash of <a href="https://nacnudus.github.io/unpivotr">unpivotr</a>.</p>
 <div id="installation" class="section level2">
@@ -99,7 +99,7 @@
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(metric <span class="op">==</span><span class="st"> "Train delays longer than 15 minutes"</span>,</a>
 <a class="sourceLine" id="cb2-15" data-line-number="15">         year <span class="op">==</span><span class="st"> "2018/19"</span>,</a>
 <a class="sourceLine" id="cb2-16" data-line-number="16">         <span class="kw">is.na</span>(quarter),</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">         period <span class="op">==</span><span class="st"> </span><span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">         period <span class="op">==</span><span class="st"> </span><span class="dv">5</span>,</a>
 <a class="sourceLine" id="cb2-18" data-line-number="18">         line <span class="op">!=</span><span class="st"> "All Lines"</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">fill=</span> underground_colours[line]) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(line, value, fill) <span class="op">%&gt;%</span></a>
@@ -110,7 +110,7 @@
 <a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">xlab</a></span>(<span class="st">""</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb2-26" data-line-number="26"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ylab</a></span>(<span class="st">""</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb2-27" data-line-number="27"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/labs">ggtitle</a></span>(<span class="st">"Train delays longer than 15 minutes"</span>,</a>
-<a class="sourceLine" id="cb2-28" data-line-number="28">          <span class="dt">subtitle =</span> <span class="st">"Period 4 2018/19 from 27 May to 23 June 2018"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-28" data-line-number="28">          <span class="dt">subtitle =</span> <span class="st">"Period 5 2018/19 from 21 July to 17 August 2018"</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-1-1.png" width="100%"></p>
 </div>
 <div id="control-periods" class="section level2">

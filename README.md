@@ -3,7 +3,7 @@
 
 # underground
 
-**Updated on 2018-09-11 with data up to 2018-06-23**
+**Updated on 2018-10-08 with data up to 2018-08-18**
 
 London Underground performance data is published in
 [spreadsheets](https://tfl.gov.uk/corporate/publications-and-reports/underground-services-performance).
@@ -25,21 +25,13 @@ devtools::install_github("nacnudus/underground")
 ``` r
 library(underground)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library(ggplot2)
 
 underground %>%
   filter(metric == "Train delays longer than 15 minutes",
          year == "2018/19",
          is.na(quarter),
-         period == 3,
+         period == 5,
          line != "All Lines") %>%
   mutate(fill= underground_colours[line]) %>%
   select(line, value, fill) %>%
@@ -50,7 +42,7 @@ underground %>%
   xlab("") +
   ylab("") +
   ggtitle("Train delays longer than 15 minutes",
-          subtitle = "Period 4 2018/19 from 27 May to 23 June 2018")
+          subtitle = "Period 5 2018/19 from 21 July to 17 August 2018")
 ```
 
 <img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
