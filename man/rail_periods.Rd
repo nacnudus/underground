@@ -15,8 +15,8 @@ days long, but some periods are shorter or longer so that each
 year is covered by exactly 13 periods.
 }}
 \source{
-The data was obtained by private corresponce with the \href{orr.gov.uk}{Office for Road andRail}.  It is similar to data published
-\href{http://dataportal.orr.gov.uk/displayreport/report/html/d986b6bf-5ca7-45c4-800c-75156d93e1a8}{online},
+The data was obtained by private corresponce with the \href{http://orr.gov.uk}{Office for Road andRail}.  It is similar to data published
+\href{http://dataportal.orr.gov.uk/browsereports/19}{online},
 but over a much wider range of years.  Similar data published by others
 differs slightly.  This package author regards the Office for Road and Rail
 as the authoritative source.

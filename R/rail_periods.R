@@ -20,8 +20,8 @@
 #'
 #' @source
 #' The data was obtained by private corresponce with the [Office for Road and
-#' Rail](orr.gov.uk).  It is similar to data published
-#' [online](http://dataportal.orr.gov.uk/displayreport/report/html/d986b6bf-5ca7-45c4-800c-75156d93e1a8),
+#' Rail](http://orr.gov.uk).  It is similar to data published
+#' [online](http://dataportal.orr.gov.uk/browsereports/19),
 #' but over a much wider range of years.  Similar data published by others
 #' differs slightly.  This package author regards the Office for Road and Rail
 #' as the authoritative source.
